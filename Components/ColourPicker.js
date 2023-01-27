@@ -1,30 +1,32 @@
-import { Component } from 'react'
-import { View, Text } from 'react-native'
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, Modal } from "react-native";
+import ColorPicker from "react-native-color-picker";
 
-import ColorPicker from 'react-native-wheel-color-picker'
+const ColorPick = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("#000000");
 
-class ColorPicker extends Component {
-	render() {
-		return (
-			<View style={[]}>
-				<ColorPicker
-					ref={r => { this.picker = r }}
-					color={this.state.currentColor}
-					swatchesOnly={this.state.swatchesOnly}
-					onColorChange={this.onColorChange}
-					onColorChangeComplete={this.onColorChangeComplete}
-					thumbSize={40}
-					sliderSize={40}
-					noSnap={true}
-					row={false}
-					swatchesLast={this.state.swatchesLast}
-					swatches={this.state.swatchesEnabled}
-					discrete={this.state.disc}
-				/>
-				<SomeButton onPress={() => this.picker.revert()} />
-			</View>
-		)
-	}
-}
+  return (
+    <View>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <Text>Open Color Picker</Text>
+      </TouchableOpacity>
+      <Modal animationType="slide" transparent={false} visible={modalVisible}>
+        <View>
+          <ColorPicker
+            onColorSelected={(color) => setSelectedColor(color)}
+            style={{ flex: 1 }}
+          />
+          <TouchableOpacity
+            onPress={() => setModalVisible(false)}
+            style={{ margin: 20 }}
+          >
+            <Text>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    </View>
+  );
+};
 
-export default App
+export default ColorPick;
