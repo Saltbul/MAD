@@ -129,8 +129,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    top: 350,
-    right: 24,
     elevation: 5,
   },
   button: {

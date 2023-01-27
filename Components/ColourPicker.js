@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal } from "react-native";
 import ColorPicker from "react-native-color-picker";
 
-const ColorPick = () => {
+export const ColorPick = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedColor, setSelectedColor] = useState("#000000");
 
@@ -29,4 +29,3 @@ const ColorPick = () => {
   );
 };
 
-export default ColorPick;

@@ -18,7 +18,7 @@ export function HomeScreen() {
           </View>
         </View>
       </ScrollView>
-      <View style={styles.addTaskContainer}>
+      <View style={styles.addTaskWrapper}>
         <AddTask />
       </View>
     </View>
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "Center",
   },
+
   circular: {
     width: 20,
     height: 20,
@@ -82,12 +83,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fffdfa",
-    position: "relative",
+    position: "relative", // added this
   },
-  addTaskContainer: {
+  addTaskWrapper: {
     position: "absolute",
-    bottom: 0,
-    right: 0,
+    bottom: 80,
+    right: 80,
   },
 });
 

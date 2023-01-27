@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import ColourPick from "./ColourPicker";
+import ColorPick from "./ColourPicker";
 
 const AddModule = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -51,7 +51,7 @@ const AddModule = () => {
               >
                 <Text style={styles.modalText}>Colour : </Text>
                 {/* <MyColorPicker/> */}
-                <ColourPick />
+                <ColorPick />
                 {/* <View style={{ flexDirection: "row", alignItems: "center", marginStart : "5%" }} >
                                     <View style={{ width: 50, height: 50, backgroundColor: '#FFDA15', borderRadius: 25, margin: "2%" }} />
                                     <View style={{ width: 50, height: 50, backgroundColor: '#A1CDFF', borderRadius: 25, margin: "2%", borderColor: "gray", borderWidth: 2 }} />
@@ -75,7 +75,7 @@ const AddModule = () => {
         </View>
       </Modal>
       <Pressable
-        style={[styles.plusButton]}
+        style={[styles.plusButton, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
         <FontAwesome5 name={"plus"} size={22} color={"black"} />
@@ -109,19 +109,21 @@ const styles = StyleSheet.create({
   plusButton: {
     width: 70,
     height: 70,
-    marginBottom: 1300,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    //bottom: 10,
-    right: 45,
     elevation: 5,
-    top: "64%",
-    backgroundColor: "#ff69b4",
   },
   buttonOpen: {
-    backgroundColor: "#9DEDFF",
+    backgroundColor: "#ff69b4",
+    shadowColor: "2e2e2e",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   buttonClose1: {
     fontSize: 20,
