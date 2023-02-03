@@ -19,16 +19,17 @@ import CalendarPicker from "react-native-calendar-picker";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { ModuleContext } from "./Context";
 import { Calendar } from "react-native-calendars";
+import { Dropdown } from "./dropdown";
 
-function DatePicker({ visible, onDateSelected }) {
-  return (
-    <Modal visible={visible} transparent={true} animationType="fade">
-      <View style={styles.overlay}>
-        <Calendar onDayPress={onDateSelected} />
-      </View>
-    </Modal>
-  );
-}
+// function DatePicker({ visible, onDateSelected }) {
+//   return (
+//     <Modal visible={visible} transparent={true} animationType="fade">
+//       <View style={styles.overlay}>
+//         <Calendar onDayPress={onDateSelected} />
+//       </View>
+//     </Modal>
+//   );
+// }
 
 const AddTask = () => {
   const {
@@ -52,8 +53,7 @@ const AddTask = () => {
     };
 
     setModalVisible(!modalVisible);
-    if (title == "" || description == "") {
-      console.log("nothings");
+    if (title == "") {
     } else {
       setTaskItem([...taskItem, taskthing]);
     }
@@ -67,11 +67,11 @@ const AddTask = () => {
 
   //Add modules later
 
-  const [items, setItems] = useState([
-    { label: "BED", value: "bed" },
-    { label: "JPRG", value: "jprg" },
-    { label: "Task", value: "task" },
-  ]);
+  // const [items, setItems] = useState([
+  //   { label: "BED", value: "bed" },
+  //   { label: "JPRG", value: "jprg" },
+  //   { label: "Task", value: "task" },
+  // ]);
 
   // const onDateChange = (date) => {
   //   setDueDate(date);
@@ -111,6 +111,8 @@ const AddTask = () => {
                   placeholderStyle={{ color: "#D3D3D3" }}
                 /> */}
 
+                {/* <Dropdown /> */}
+
                 <View>
                   <View>
                     <Text style={{ marginTop: "20%", fontSize: "18" }}>
@@ -125,7 +127,7 @@ const AddTask = () => {
                     />
                   </View>
                 </View>
-                <View>
+                {/* <View>
                   <SafeAreaView style={styles.container}>
                     <Button
                       title="Show Modal"
@@ -136,7 +138,7 @@ const AddTask = () => {
                       onDateSelected={() => setModalVisible(false)}
                     />
                   </SafeAreaView>
-                </View>
+                </View> */}
                 <View
                   style={{
                     flexDirection: "row",

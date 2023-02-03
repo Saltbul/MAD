@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+
 import AddTask from "./AddTask";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { ModuleContext } from "./Context";
@@ -25,24 +26,44 @@ function TaskBox() {
     setTaskItem,
   } = useContext(ModuleContext);
   return (
+    // <FlatList
+    //   data={taskItem}
+    //   renderItem={({ item }) => (
+    //     <TouchableOpacity
+    //       style={[styles.box]}
+    //       onPress={() => <CompleteTask />}
+    //       activeOpacity={0.6}
+    //     >
+
+    //       <Task text={item.title} label="bed" />
+    //       <View
+
+    //         style={{
+    //           ...styles.circular,
+    //           backgroundColor: "red",
+    //           left: "100%",
+    //         }}
+    //       ></View>
+    //     </TouchableOpacity>
+    //   )}
+    // />
     <FlatList
       data={taskItem}
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          style={[styles.box]}
-          onPress={() => <AddTask />}
-          activeOpacity={0.6}
-        >
-          <Task text={item.title} />
+      renderItem={({ item, index }) => (
+        <TouchableOpacity style={[styles.box]} activeOpacity={0.6}>
+          <Task text={item.title} onPress={() => completeTask(index)} />
+          <View style={{ ...styles.circular, backgroundColor: "red" }} />
         </TouchableOpacity>
       )}
     />
   );
 }
 
-const CompleteTask = (index) => {
+const completeTask = (index) => {
+  const { taskItem, setTaskItem } = useContext(ModuleContext);
   let itemsCopy = [...taskItem];
-  itemsCopy.splice[(index, 1)];
+  itemsCopy.splice(index, 1);
+  setTaskItem(itemsCopy);
 };
 
 export function TaskScreen() {
@@ -72,12 +93,12 @@ export const Task = (props) => {
       <View style={styles.item}>
         <Text style={styles.itemText}>{props.text}</Text>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={{ marginRight: 15, color: colors[index] }}>
+          <Text style={{ marginRight: 0, color: colors[index] }}>
             {props.label}
           </Text>
-          {/* <View
+          <View
             style={{ ...styles.circular, backgroundColor: colors[index] }}
-          ></View> */}
+          ></View>
         </View>
       </View>
     </View>
@@ -91,8 +112,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#E8E8E8",
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     margin: 10,
+    flexDirection: "row",
+    padding: 15,
   },
   itemCenter: {
     alignItems: "center",

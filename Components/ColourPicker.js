@@ -1,45 +1,3 @@
-// import React, { useContext } from "react";
-// import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
-// import ColorPicker from "react-native-color-picker";
-// import { ModuleContext } from "./Context";
-
-// export const ColorPick = () => {
-//   const { colorModalVisible, setColorModalVisible } = useContext(ModuleContext);
-
-//   return (
-//     <View>
-//       <TouchableOpacity onPress={() => setColorModalVisible(true)}>
-//         <Text>Tap to choose</Text>
-//       </TouchableOpacity>
-//       <Modal
-//         animationType="slide"
-//         transparent={false}
-//         visible={colorModalVisible}
-//         onRequestClose={() => setColorModalVisible(false)}
-//       >
-//         <View style={{ padding: 45 }}>
-//           <ColorPicker
-//             oldColor="purple"
-//             onColorSelected={(color) => alert(`Color selected: ${color}`)}
-//             style={{ flex: 1 }}
-//           />
-//           <TouchableOpacity onPress={() => setColorModalVisible(false)}>
-//             <Text>Close</Text>
-//           </TouchableOpacity>
-//         </View>
-//       </Modal>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   modalText: {
-//     marginTop: 4,
-//     textAlign: "left",
-//     fontSize: 20,
-//   },
-// });
-
 import React, { useContext } from "react";
 import { View, Modal, TouchableOpacity, Text } from "react-native";
 import { ModuleContext } from "./Context";
@@ -53,7 +11,7 @@ const ColorPicker = () => {
         style={{
           width: 100,
           height: 100,
-          backgroundColor: color,
+          backgroundColor: "#E8E8E8",
           borderRadius: 50,
         }}
         onPress={() => setColorModalVisible(true)}
@@ -66,38 +24,112 @@ const ColorPicker = () => {
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <TouchableOpacity
-            style={{
-              width: 100,
-              height: 100,
-              backgroundColor: "red",
-              borderRadius: 50,
-              marginBottom: 20,
-            }}
-            onPress={() => setColor("red")}
-          />
-          <TouchableOpacity
-            style={{
-              width: 100,
-              height: 100,
-              backgroundColor: "blue",
-              borderRadius: 50,
-              marginBottom: 20,
-            }}
-            onPress={() => setColor("blue")}
-          />
-          <TouchableOpacity
-            style={{
-              width: 100,
-              height: 100,
-              backgroundColor: "green",
-              borderRadius: 50,
-              marginBottom: 20,
-            }}
-            onPress={() => setColor("green")}
-          />
+          <View style={{ flexDirection: "row", margin: 20 }}>
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "red",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("red")}
+            />
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "orange",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("orange")}
+            />
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "gold",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("gold")}
+            />
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "green",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("green")}
+            />
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "dodgerblue",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("dodgerblue")}
+            />
+          </View>
+          <View style={{ flexDirection: "row", margin: 20 }}>
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "lightcoral",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("lightcoral")}
+            />
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "lightgreen",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("lightgreen")}
+            />
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "lightpink",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("lightpink")}
+            />
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "paleturquoise",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("paleturquoise")}
+            />
+            <TouchableOpacity
+              style={{
+                width: 50,
+                height: 50,
+                backgroundColor: "peachpuff",
+                borderRadius: 50,
+                margin: 5,
+              }}
+              onPress={() => setColor("peachpuff")}
+            />
+          </View>
           <TouchableOpacity onPress={() => setColorModalVisible(false)}>
-            <Text>Done</Text>
+            <Text style={{ fontSize: 25 }}>SAVE</Text>
           </TouchableOpacity>
         </View>
       </Modal>

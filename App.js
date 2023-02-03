@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -10,6 +10,8 @@ import AddModule from "./Components/AddModule";
 import { ColorProvider } from "react-native-color-picker";
 import { ModuleProvider } from "./Components/Context";
 const Tab = createBottomTabNavigator();
+
+// AppRegistry.registerComponent(main, () => App);
 
 function TabNavigator() {
   return (
@@ -55,4 +57,11 @@ export default function App() {
       </NavigationContainer>
     </ModuleProvider>
   );
+  // return (
+  //   <ModuleProvider>
+  //     <NavigationContainer>
+  //       <TabNavigator />
+  //     </NavigationContainer>
+  //   </ModuleProvider>
+  // );
 }

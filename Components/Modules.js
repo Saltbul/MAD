@@ -27,7 +27,7 @@ function ModulesBoxes({ navigation }) {
         data={moduleItems}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={[styles.box, { backgroundColor: "pink" }]}
+            style={[styles.box, { backgroundColor: item.color || "#E8E8E8" }]}
             onPress={() => navigation.navigate("IndivTasks")}
           >
             <Text style={styles.moduleName}> {item.moduleName}</Text>
@@ -86,10 +86,10 @@ function IndivTasks() {
         <View>
           <RoundedRectangles
             rectangles={[
-              { text: "Practical 1", radius: 25, width: "90%" },
-              { text: "Practical 2", radius: 25, width: "90%" },
-              { text: "Practical 3", radius: 25, width: "90%" },
-              { text: "Practical 4", radius: 25, width: "90%" },
+              { text: "These", radius: 25, width: "90%" },
+              { text: "tasks", radius: 25, width: "90%" },
+              { text: "are", radius: 25, width: "90%" },
+              { text: "hardcoded", radius: 25, width: "90%" },
             ]}
           />
         </View>

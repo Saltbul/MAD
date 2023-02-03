@@ -19,6 +19,7 @@ const AddModule = () => {
     moduleTitle,
     onChangeModuleTitle,
     setModuleItems,
+    color,
   } = useContext(ModuleContext);
 
   const addNewModule = () => {
@@ -34,16 +35,17 @@ const AddModule = () => {
     } else {
       const newModule = {
         moduleName: moduleTitle,
+        color: color,
       };
       setModuleItems([...moduleItems, newModule]);
       setModalVisible(!modalVisible);
     }
   };
-  const removeModule = (index) => {
-    const newModuleItems = [...moduleItems];
-    newModuleItems.splice(index, 1);
-    setModuleItems(newModuleItems);
-  };
+  // const removeModule = (index) => {
+  //   const newModuleItems = [...moduleItems];
+  //   newModuleItems.splice(index, 1);
+  //   setModuleItems(newModuleItems);
+  // };
 
   const handlePress = () => {
     onChangeModuleTitle("");
