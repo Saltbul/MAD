@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import {
   TextInput,
   Modal,
@@ -6,12 +6,49 @@ import {
   Text,
   Pressable,
   View,
+  Alert,
 } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import ColorPick from "./ColourPicker";
-
+import ColorPicker from "./ColourPicker";
+import { ModuleContext } from "./Context";
 const AddModule = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const {
+    modalVisible,
+    setModalVisible,
+    moduleItems,
+    moduleTitle,
+    onChangeModuleTitle,
+    setModuleItems,
+  } = useContext(ModuleContext);
+
+  const addNewModule = () => {
+    if (moduleTitle == "") {
+      Alert.alert("Invalid Input", "Please enter a Module", [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    } else {
+      const newModule = {
+        moduleName: moduleTitle,
+      };
+      setModuleItems([...moduleItems, newModule]);
+      setModalVisible(!modalVisible);
+    }
+  };
+  const removeModule = (index) => {
+    const newModuleItems = [...moduleItems];
+    newModuleItems.splice(index, 1);
+    setModuleItems(newModuleItems);
+  };
+
+  const handlePress = () => {
+    onChangeModuleTitle("");
+    setModalVisible(true);
+  };
 
   return (
     <View style={styles.centeredView}>
@@ -20,7 +57,7 @@ const AddModule = () => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalVisible(false);
         }}
       >
         <View style={styles.centeredView}>
@@ -30,35 +67,24 @@ const AddModule = () => {
             <View style={{ alignItems: "left" }}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.modalText}>Module Name : </Text>
-                <TextInput style={styles.modalInput} />
-              </View>
-
-              <View style={{ flexDirection: "row" }}>
-                <Text style={styles.modalText}>Number of Credits : </Text>
                 <TextInput
-                  style={styles.modalNumberInput}
-                  //numeric value   // prop makes the input to get numeric only
-                  keyboardType={"numeric"} // prop to open numeric keyboard
+                  style={styles.modalInput}
+                  onChangeText={onChangeModuleTitle}
+                  value={moduleTitle}
+                  autoCapitalize="characters"
                 />
               </View>
 
               <View
                 style={{
                   flexDirection: "column",
-                  marginTop: "5%",
                   alignItems: "left",
                 }}
               >
-                <Text style={styles.modalText}>Colour : </Text>
-                {/* <MyColorPicker/> */}
-                <ColorPick />
-                {/* <View style={{ flexDirection: "row", alignItems: "center", marginStart : "5%" }} >
-                                    <View style={{ width: 50, height: 50, backgroundColor: '#FFDA15', borderRadius: 25, margin: "2%" }} />
-                                    <View style={{ width: 50, height: 50, backgroundColor: '#A1CDFF', borderRadius: 25, margin: "2%", borderColor: "gray", borderWidth: 2 }} />
-                                    <View style={{ width: 50, height: 50, backgroundColor: '#B878EB', borderRadius: 25, margin: "2%" }} />
-                                    <View style={{ width: 50, height: 50, backgroundColor: '#B7DCB7', borderRadius: 25, margin: "2%" }} />
-                                    <View style={{ width: 50, height: 50, backgroundColor: '#FFB6B6', borderRadius: 25, margin: "2%" }} />
-                                </View> */}
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.modalText}>Colour : </Text>
+                  <ColorPicker />
+                </View>
               </View>
             </View>
 
@@ -67,8 +93,8 @@ const AddModule = () => {
                 <Text style={styles.buttonClose1}>Cancel</Text>
               </Pressable>
               <View style={[styles.space]} />
-              <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.buttonClose2}>Done</Text>
+              <Pressable onPress={() => addNewModule()}>
+                <Text style={styles.buttonClose2}>Add</Text>
               </Pressable>
             </View>
           </View>
@@ -76,7 +102,7 @@ const AddModule = () => {
       </Modal>
       <Pressable
         style={[styles.plusButton, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
+        onPress={() => handlePress()}
       >
         <FontAwesome5 name={"plus"} size={22} color={"black"} />
       </Pressable>
@@ -174,5 +200,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
 export default AddModule;

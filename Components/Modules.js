@@ -1,61 +1,61 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   TouchableOpacity,
-  Button,
   Pressable,
   ScrollView,
   View,
   Text,
   StyleSheet,
+  TextInput,
+  Modal,
+  FlatList,
 } from "react-native";
+
 import { createStackNavigator } from "@react-navigation/stack";
-import AddModule from "./AddModule";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AddTask from "./AddTask";
+import AddModule from "./AddModule";
 import RoundedRectangles from "./ModuleTasks";
 import CTask from "./completedTask";
+import { ModuleContext } from "./Context";
 
-export function Modules({ navigation: { navigate } }) {
+function ModulesBoxes({ navigation }) {
+  const { moduleItems, setModuleItems } = useContext(ModuleContext);
+  return (
+    <View>
+      <FlatList
+        data={moduleItems}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={[styles.box, { backgroundColor: "pink" }]}
+            onPress={() => navigation.navigate("IndivTasks")}
+          >
+            <Text style={styles.moduleName}> {item.moduleName}</Text>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+}
+
+export function Modules({ navigation }) {
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.taskWrapper}>
-          <View
-            style={{ alignItems: "center", justifyContent: "center", top: 50 }}
+      <View style={styles.taskWrapper}>
+        <View
+          style={{ alignItems: "center", justifyContent: "center", top: 50 }}
+        >
+          <TouchableOpacity
+            style={styles.box}
+            onPress={() => navigation.navigate("CompletedTasks")}
+            activeOpacity={0.6}
           >
-            <TouchableOpacity
-              style={styles.box}
-              onPress={() => navigate("CompletedTasks")}
-              activeOpacity={0.6}
-            >
-              <Text style={{ fontSize: 23, color: "#32CD32" }}>Completed</Text>
-            </TouchableOpacity>
+            <Text style={{ fontSize: 23, color: "#32CD32" }}>Completed</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[styles.box, { backgroundColor: "#FFDA15" }]}
-              onPress={() => navigate("JPRGtasks")}
-              activeOpacity={0.6}
-            >
-              <Text style={styles.moduleName}>JPRG</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.box, { backgroundColor: "#A1CDFF" }]}
-              onPress={() => navigate("MADtasks")}
-              activeOpacity={0.6}
-            >
-              <Text style={styles.moduleName}>MAD</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.box, { backgroundColor: "#B878EB" }]}
-              onPress={() => navigate("DEUItasks")}
-              activeOpacity={0.6}
-            >
-              <Text style={styles.moduleName}>DEUI</Text>
-            </TouchableOpacity>
-          </View>
+          <ModulesBoxes navigation={navigation} />
         </View>
-      </ScrollView>
+      </View>
       <View style={styles.addTaskWrapper}>
         <AddModule />
       </View>
@@ -79,7 +79,7 @@ function CompletedTasks({ navigation, route }) {
   );
 }
 
-function JPRGtasks() {
+function IndivTasks() {
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -94,46 +94,9 @@ function JPRGtasks() {
           />
         </View>
       </ScrollView>
-      <AddTask />
-    </View>
-  );
-}
-
-function MADtasks() {
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View>
-          <RoundedRectangles
-            rectangles={[
-              { text: "Practical 1", radius: 25, width: "90%" },
-              { text: "Practical 2", radius: 25, width: "90%" },
-              { text: "Practical 3", radius: 25, width: "90%" },
-              { text: "Practical 4", radius: 25, width: "90%" },
-            ]}
-          />
-        </View>
-      </ScrollView>
-      <AddTask />
-    </View>
-  );
-}
-function DEUItasks() {
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View>
-          <RoundedRectangles
-            rectangles={[
-              { text: "Practical 1", radius: 25, width: "90%" },
-              { text: "Practical 2", radius: 25, width: "90%" },
-              { text: "Practical 3", radius: 25, width: "90%" },
-              { text: "Practical 4", radius: 25, width: "90%" },
-            ]}
-          />
-        </View>
-      </ScrollView>
-      <AddTask />
+      <View>
+        <AddTask />
+      </View>
     </View>
   );
 }
@@ -143,7 +106,6 @@ export const ModuleStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
       <Stack.Screen name="Modules" component={Modules} />
-      {/* all other screens located inside the stack of the tab Home */}
       <Stack.Screen
         name="CompletedTasks"
         component={CompletedTasks}
@@ -156,34 +118,12 @@ export const ModuleStack = () => {
       />
 
       <Stack.Screen
-        name="JPRGtasks"
-        component={JPRGtasks}
+        name="IndivTasks"
+        component={IndivTasks}
         options={{
-          title: "JPRG Tasks",
+          title: "Tasks",
           headerStyle: {
-            backgroundColor: "#FFDA15",
-          },
-        }}
-      />
-
-      <Stack.Screen
-        name="MADtasks"
-        component={MADtasks}
-        options={{
-          title: "MAD Tasks",
-          headerStyle: {
-            backgroundColor: "#A1CDFF",
-          },
-        }}
-      />
-
-      <Stack.Screen
-        name="DEUItasks"
-        component={DEUItasks}
-        options={{
-          title: "DEUI Tasks",
-          headerStyle: {
-            backgroundColor: "#B878EB",
+            backgroundColor: "pink",
           },
         }}
       />
@@ -197,8 +137,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   box: {
-    width: "90%",
-    height: "25%",
+    width: 380,
+    height: 80,
     backgroundColor: "#E8E8E8",
     borderRadius: 20,
     alignItems: "center",
@@ -207,32 +147,6 @@ const styles = StyleSheet.create({
   },
   moduleName: {
     fontSize: 25,
-  },
-  item: {
-    backgroundColor: "#e8e8e8",
-    padding: 15,
-    borderRadius: 25,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 20,
-    height: 80,
-    shadowColor: "2e2e2e",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  //   taskWrapper: {
-  //     paddingTop: 80,
-  //     paddingHorizontal: 20,
-  //     backgroundColor: "#fffdfa",
-  //     flex: 1,
-  //   },
-  header: {
-    backgroundColor: "yellow",
   },
   moduleWrapper: {
     marginBottom: 0,
@@ -245,12 +159,4 @@ const styles = StyleSheet.create({
     bottom: 80,
     right: 80,
   },
-
-  // lineBreak: {
-  //     width: '100%',
-  //     height: 1.5,
-  //     backgroundColor: 'gray',
-  //     alignSelf: 'center',
-  //     marginBottom: 15
-  // },
 });
